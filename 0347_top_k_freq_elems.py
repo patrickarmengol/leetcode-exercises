@@ -1,23 +1,34 @@
+"""
+neetcode - arrays & hashing - 5
+
+sol 1: O(nlogn)
+count with a counter and sort to return most common
+
+sol 2: O(klogn)
+count and use a heap to pop most common
+
+sol 3: O(n)
+use bucket sort to pop an array where index is count and values are the nums
+"""
 from collections import Counter
+
+# most_common() uses sorted(self.items, key=itemgetter(1), reverse=True)
+# most_common(k) uses heapq.nlargest(k, self.items, key=itemgetter(1))
+# class Solution:
+#     def topKFrequent(self, nums: list[int], k: int) -> list[int]:
+#         c = Counter(nums)
+#         return [a for a, _ in c.most_common(k)]
 
 
 class Solution:
     def topKFrequent(self, nums: list[int], k: int) -> list[int]:
-        c = Counter(nums)
-        return [a for a, _ in c.most_common(k)]
-
-
-"""
-not sure how Counter handles most_common, but you can get O(n) by avoiding sorting
-
-class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
         count = {}
-        freq = [[] for i in range(len(nums) + 1)]
+        freq = [[] for _ in range(len(nums) + 1)]
 
         for n in nums:
-            count[n] = 1 + count.get(n, 0)
-        for n, c in count.items():
+            count.setdefault(n, 0)
+            count[n] += 1
+        for n, c in count:
             freq[c].append(n)
 
         res = []
@@ -26,4 +37,4 @@ class Solution:
                 res.append(n)
                 if len(res) == k:
                     return res
-"""
+        return res

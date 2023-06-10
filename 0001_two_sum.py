@@ -1,7 +1,16 @@
-from typing import List
+"""
+neetcode - arrays & hashing - 3
+
+sol 1: O(n**2)
+brute force
+
+sol 2: O(n)
+dict to record previously seen n
+enumerate, calc difference needed to reach target, check prevmap for diff
+"""
 
 # class Solution:
-#     def twoSum(self, nums: List[int], target: int) -> List[int]:
+#     def twoSum(self, nums: list[int], target: int) -> list[int]:
 #         for i in range(len(nums)-1):
 #             for j in range(i+1, len(nums)):
 #                 if nums[i] + nums[j] == target:
@@ -10,7 +19,7 @@ from typing import List
 
 
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums: list[int], target: int) -> list[int]:
         prevmap = {}
 
         for i, n in enumerate(nums):
@@ -19,3 +28,4 @@ class Solution:
                 return [prevmap[diff], i]
             else:
                 prevmap[n] = i
+        return [0, 0]
