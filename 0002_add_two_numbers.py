@@ -1,27 +1,34 @@
-from __future__ import annotations
+"""
+neetcode - linked list - 6
 
-from typing import Optional
+sol:
+iterate through both lists, summing digit-wise and calcing the carry
+sumlist gets initiated with remainder vals
+"""
+
+from __future__ import annotations
 
 
 class ListNode:
-    def __init__(self, val: int = 0, next: Optional[ListNode] = None):
+    def __init__(self, val: int = 0, next: ListNode | None = None):
         self.val = val
         self.next = next
 
 
 class Solution:
-    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        c1, c2 = (l1, l2)
-        s = ListNode()
-        cs = s
+    def addTwoNumbers(
+        self, l1: ListNode | None, l2: ListNode | None
+    ) -> ListNode | None:
+        dummy = ListNode()
+        ls = dummy
         carry = 0
-        while c1 or c2 or carry:
-            cs.next = ListNode()
-            cs = cs.next
-            currentdigit = (c1.val if c1 else 0) + (c2.val if c2 else 0) + carry
-            carry = currentdigit // 10
-            remainder = currentdigit % 10
-            cs.val = remainder
-            c1 = c1.next if c1 else None
-            c2 = c2.next if c2 else None
-        return s.next
+        while l1 or l2 or carry:
+            cs = (l1.val if l1 else 0) + (l2.val if l2 else 0) + carry
+            carry = cs // 10
+            remainder = cs % 10
+            ls.next = ListNode(remainder)
+
+            ls = ls.next
+            l1 = l1.next if l1 else None
+            l2 = l2.next if l2 else None
+        return dummy.next
